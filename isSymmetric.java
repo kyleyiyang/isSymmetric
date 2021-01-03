@@ -16,20 +16,11 @@
 class Solution {
     public boolean isSymmetric(TreeNode root) {
         if (root==null) return true;
-        if (root.left!=null && root.right!=null && root.left.val!=root.right.val) return false;
-        ArrayList<Integer> arr = new ArrayList<>();
-        walk(root,arr);
-        //System.out.println(arr);
-        for (int i=0;i<arr.size();i++) {
-            if (arr.get(i)!=arr.get(arr.size()-i-1)) return false;
-        }
-        return true;
+        return isMirror(root.left, root.right);
     }
-    public void walk(TreeNode root, ArrayList<Integer> arr) {
-        if (root.left==null && root.right!=null) arr.add(-1);
-        if (root.left!=null) walk(root.left,arr);
-        arr.add(root.val);
-        if (root.right!=null) walk(root.right,arr);
-        if (root.left!=null && root.right==null) arr.add(-1);
+    public boolean isMirror(TreeNode r1, TreeNode r2) {
+        if (r1==null && r2==null) return true;
+        if (r1==null || r2==null) return false;
+        return r1.val==r2.val && isMirror(r1.left,r2.right) && isMirror(r1.right, r2.left);
        }
 }
